@@ -11,8 +11,7 @@ The decorator registers the function as the handler for HTTP requests to the /he
 
 **Answer:**
 
-
-
+{{ my_variable }} is an expression, it evaluates the expression and inserts its value into the rendered output. While {% for item in my_list %} ... {% endfor %} is a control statement or a tag, it controls template logic (loops, conditionals)
 
 ----------------
 **Question 3:** In `app.py`, why is it important to use `(?, ?)` and pass the variables as a tuple in the `conn.execute()` command instead of using f-strings to put the variables directly into the SQL string? What is this technique called?
