@@ -4,8 +4,7 @@
 
 **Answer:**
 
-
-
+The @app.route('/health') decorator registers the function below it (health_check) as the view handler for HTTP requests to the /health URL path.
 
 ----------------
 **Question 2:** In Jinja2, what is the difference between `{{ my_variable }}` and `{% for item in my_list %}`?
