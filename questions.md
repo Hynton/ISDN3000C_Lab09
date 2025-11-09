@@ -18,7 +18,7 @@ The decorator registers the function as the handler for HTTP requests to the /he
 
 **Answer:**
 
-
+With parameter binding, the database engine treats the parameters as data, not executable code. Therefore, it can prefent the SQL injection attacks, and prevents syntax errors from malformed strings.
 
 
 ----------------
