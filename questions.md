@@ -26,7 +26,7 @@ With parameter binding, the database engine treats the parameters as data, not e
 
 **Answer:**
 
-
+To prevent the default page reload so as to prevent the regular form endpoint being called. If the line is removed, double submission occured because both the API endpoint and regular form endpoint being called.
 
 
 ----------------
