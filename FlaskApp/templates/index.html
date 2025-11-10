@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Let's add some minimal styling -->
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 800px;
+            margin: auto;
+            padding: 1em;
+        }
+
+        h1 {
+            color: #333;
+        }
+    </style>
+    <title>{{ page_title }}</title>
+</head>
+
+<body>
+    <h1>Welcome to the Guestbook!</h1>
+
+    <!-- flashed messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flashes">
+        {% for category, msg in messages %}
+        <div class="flash {{ category }}">{{ msg }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Form for new messages -->
+    <hr>
+    <form method="post">
+        <label for="name">Name:</label><br>
+        <input type="text" name="name" placeholder="Your name" required><br><br>
+
+        <label for="message">Message:</label><br>
+        <textarea name="message" placeholder="Your message" rows="3" cols="40" required></textarea><br><br>
+
+        <button type="submit">Post Message</button>
+    </form>
+    <hr>
+
+    <h2>Current Entries:</h2>
+
+    <!-- Note the change here: we now access message.name and message.message -->
+    {% for message in messages %}
+    <p>
+        <strong>{{ message['name'] }}</strong>
+        <small>({{ message['created_at'] }})</small>:
+        <br>
+        {{ message['message'] }}
+    </p>
+    {% else %}
+    <p>No messages yet! Be the first.</p>
+    {% endfor %}
+
+    <script>
+        // Select the form
+        const form = document.querySelector('form');
+
+        // Add an event listener for the 'submit' event
+        form.addEventListener('submit', async (event) => {
+            // Prevent the default page reload
+            event.preventDefault();
+
+            // Get the form data
+            const formData = new FormData(form);
+            const name = formData.get('name');
+            const message = formData.get('message');
+
+            // Send the data to our new API endpoint
+            try {
+                const response = await fetch('/api/messages', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, message }),
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // If successful, just reload the page to see the new message
+                    alert('Message posted successfully!');
+                    // Code 4: Clear the form fields after successful submission
+                    location.reload();
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Submission failed:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+
+<!--
+<body>
+    <h1>Welcome to the Movie Stop!</h1>
+    <p>Here are my favourite movies:</p>
+
+    <ul>
+        {% for message in messages %}
+        <ol>{{ message }}</ol>
+        {% else %}
+        <ol>No messages yet!</ol>
+        {% endfor %}
+    </ul>
+
+</body>
+
+</html>
+-->
