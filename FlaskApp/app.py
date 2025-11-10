@@ -3,7 +3,7 @@ import sqlite3
 from flask import Flask, render_template, request, url_for, redirect, jsonify, flash
 
 # Create the Flask app and point to the templates folder
-app = Flask(__name__, template_folder='FlaskApp/templates')
+app = Flask(__name__, template_folder='templates')
 # Secret key is required for flashing (session). Change this for production.
 app.config['SECRET_KEY'] = 'dev-secret-change-me'
 
